@@ -14,6 +14,7 @@ MODELS = {
     "writer": "claude-sonnet-5-5",    # writes the questions
     "verifier": "claude-haiku-5-5",   # checks questions against the lesson
     "builder": "claude-sonnet-5-5",   # writes the game code
+    "iterator": "claude-haiku-5-5",   # makes changes on current game
 }
 
 # Turn this off once we have the API key.
@@ -55,5 +56,17 @@ FAKE_ANSWERS = {
             {"question_number": 2, "supported": True},
         ]
     }),
+
+    "iterator": json.dumps({
+        "questions": [
+            {
+                "question": "What does ice turn into when it melts?",
+                "choices": ["Water", "Soda", "Steam"], 
+                "answer": "Water", 
+                "source": "When ice warms, it melts back into water.", 
+            }, 
+        ]
+    }), 
+
     "builder": "<!DOCTYPE html><html><body><h1>Fake game</h1></body></html>",
 }

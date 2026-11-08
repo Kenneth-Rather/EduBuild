@@ -18,3 +18,13 @@ export async function createGame(game: NewGame): Promise<string> {
   void game
   return '1'
 }
+
+// Asks the AI to change a game, in the teacher's own words.
+// TODO: the backend has no edit endpoint yet; this pretends it worked.
+export async function requestGameEdit(
+  gameId: string,
+  request: string,
+): Promise<void> {
+  void gameId
+  void request
+}

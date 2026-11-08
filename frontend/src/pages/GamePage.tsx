@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import Button from '../components/Button'
+import EditRequest from '../components/EditRequest'
 import GamePlayer from '../components/GamePlayer'
 import SharePopup from '../components/SharePopup'
 
@@ -22,7 +23,7 @@ function GamePage() {
           Edit
         </Button>
       </div>
-      {tab === 'play' ? <GamePlayer gameId={id} /> : <p>[Edit questions]</p>}
+      {tab === 'play' ? <GamePlayer gameId={id} /> : <EditRequest gameId={id} />}
 
       <Button onClick={() => navigate('/dashboard')}>Save</Button>
       <Button

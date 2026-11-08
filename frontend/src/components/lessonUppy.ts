@@ -2,11 +2,11 @@ import Uppy from '@uppy/core'
 
 // Lesson files teachers can upload, and how many / how big.
 export const ALLOWED_FILE_TYPES = [
-  '.pdf',
-  '.doc',
-  '.docx',
-  '.ppt',
-  '.pptx',
+  // '.pdf',
+  // '.doc',
+  // '.docx',
+  // '.ppt',
+  // '.pptx',
   '.txt',
 ]
 export const MAX_FILES = 5

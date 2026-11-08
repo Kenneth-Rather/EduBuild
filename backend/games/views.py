@@ -35,6 +35,20 @@ def _read_text(request):
     return request.POST.get("text"), None
 
 
+def _read_settings(request):
+    """Find the grade and difficulty the teacher picked (with simple defaults)."""
+    if request.content_type.startswith("application/json"):
+        try:
+            payload = json.loads(request.body)
+        except json.JSONDecodeError:
+            payload = {}
+        if not isinstance(payload, dict):
+            payload = {}
+    else:
+        payload = request.POST
+    return payload.get("grade", "3"), payload.get("difficulty", "Easy")
+
+
 @csrf_exempt
 def generate_game(request):
     """Receive lesson content and return generated questions as JSON.
@@ -57,9 +71,9 @@ def generate_game(request):
             status=400,
         )
 
-    return JsonResponse(
-        {
-            "status": "success",
-            "questions": generate_trivia_questions(uploaded_text),
-        }
-    )
+    grade, difficulty = _read_settings(request)
+    questions, error = generate_trivia_questions(uploaded_text, grade, difficulty)
+    if error:
+        return JsonResponse({"status": "error", "message": error}, status=502)
+
+    return JsonResponse({"status": "success", "questions": questions})

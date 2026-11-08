@@ -1,21 +1,17 @@
-"""Business logic for turning uploaded lesson text into demo questions."""
+"""Business logic for turning uploaded lesson text into trivia questions.
+
+This connects Django to the AI pipeline (the orchestrator in backend/pipeline).
+"""
+
+from pipeline.orchestrator import run_pipeline
 
 
-def generate_trivia_questions(text):
-    """Create the two demo questions returned to the frontend.
+def generate_trivia_questions(text, grade="3", difficulty="Easy"):
+    """Run the AI pipeline on the lesson text.
 
-    The function receives the lesson text, creates a short preview for the
-    first answer, and returns a Python list that Django converts to JSON.
-    This is the placeholder where a future Claude API call can be added.
+    Returns (questions, error). On success, error is None. If the pipeline
+    fails (for example, the AI's answer was in the wrong format), questions
+    is an empty list and error explains what went wrong.
     """
-    preview = " ".join(text.split())[:100]
-    return [
-        {
-            "question": "What topic was included in the uploaded lesson?",
-            "answer": preview or "No lesson text was provided.",
-        },
-        {
-            "question": "Was the lesson processed by the EduBuild backend?",
-            "answer": "Yes",
-        },
-    ]
+    run = run_pipeline(text, grade=grade, difficulty=difficulty)
+    return run["questions"], run["error"]

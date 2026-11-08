@@ -2,8 +2,15 @@
 
 import json
 
+from unittest.mock import patch
+
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
+
+from pipeline import llm
+
+# Tests never call the real AI, so they are free and always give the same result.
+llm.USE_FAKE_AI = True
 
 
 class GenerateGameTests(TestCase):
@@ -46,3 +53,15 @@ class GenerateGameTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 400)
+
+    def test_ai_failure_returns_error(self):
+        """Check that a broken AI answer becomes a clear error, not a crash."""
+        with patch("pipeline.orchestrator.llm.ask", return_value="not json"):
+            response = self.client.post(
+                "/api/generate-game/",
+                data=json.dumps({"text": "Cats are mammals."}),
+                content_type="application/json",
+            )
+
+        self.assertEqual(response.status_code, 502)
+        self.assertEqual(response.json()["status"], "error")

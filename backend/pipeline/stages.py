@@ -17,7 +17,7 @@ ALLOWED_MOVES = {
     QUEUED: [READING, FAILED],
     READING: [WRITING_QUESTIONS, FAILED],
     WRITING_QUESTIONS: [CHECKING, FAILED],
-    CHECKING: [BUILDING, FAILED],
+    CHECKING: [BUILDING, DONE, FAILED],  # prototype: stops after checking (DONE)
     BUILDING: [TESTING, FAILED],
     TESTING: [DONE, BUILDING, FAILED],  # back to BUILDING = the AI repairs the game
     DONE: [],                           # finished, nothing comes after

@@ -150,7 +150,9 @@ nav button:focus-visible {
   outline-color: var(--white);
 }
 
-input {
+input,
+select,
+textarea {
   font: inherit;
   color: var(--blue-dark);
   background: var(--white);
@@ -158,7 +160,9 @@ input {
   border-radius: 6px;
   padding: 8px 12px;
 }
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: none;
   border-color: var(--blue);
 }

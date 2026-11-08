@@ -2,5 +2,6 @@ backend/venv/
 venv/
 __pycache__/
 db.sqlite3
+prototype_db.sqlite3
 .env
 node_modules/

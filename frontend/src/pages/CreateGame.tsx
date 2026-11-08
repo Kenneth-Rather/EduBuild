@@ -1,3 +1,4 @@
+import { useUppyState } from '@uppy/react'
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'
 import {
@@ -8,6 +9,8 @@ import {
   type NewGame,
 } from '../api/games'
 import Button from '../components/Button'
+import LessonUpload from '../components/LessonUpload'
+import { createLessonUppy } from '../components/lessonUppy'
 
 function CreateGame() {
   const navigate = useNavigate()
@@ -17,18 +20,24 @@ function CreateGame() {
     DIFFICULTIES[0],
   )
   const [topic, setTopic] = useState('')
-  // Filled by the Uppy uploader once it's added from the file-upload branch.
-  const [files] = useState<File[]>([])
+  // One Uppy instance for the life of the page, so files survive re-renders.
+  const [uppy] = useState(createLessonUppy)
+  const uppyFiles = useUppyState(uppy, (state) => state.files)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  const hasContent = topic.trim() !== '' || files.length > 0
+  const hasContent = topic.trim() !== '' || Object.keys(uppyFiles).length > 0
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
     if (!hasContent) return
     setError('')
     setSubmitting(true)
+    // Uppy wraps each file; File objects are what gets sent to the backend.
+    const files = uppy
+      .getFiles()
+      .map((file) => file.data)
+      .filter((data): data is File => data instanceof File)
     try {
       const id = await createGame({
         genre,
@@ -101,9 +110,9 @@ function CreateGame() {
             placeholder="e.g. The Solar System: the Sun, stars, planets, moons, and the rotation of the Earth"
           />
         </label>
-        <div className="upload-slot">
-          {/* Uppy uploader goes here (file-upload branch). */}
-          Upload course material (coming soon)
+        <div className="upload-field">
+          <span className="field-label">Course material</span>
+          <LessonUpload uppy={uppy} />
         </div>
       </fieldset>
 

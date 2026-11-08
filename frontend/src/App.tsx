@@ -1,8 +1,8 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { AuthProvider } from './auth/AuthProvider'
 import RequireAuth from './auth/RequireAuth'
 import Layout from './components/Layout'
-import CreateGame from './pages/CreateGame'
 import GamePage from './pages/GamePage'
 import Generating from './pages/Generating'
 import Landing from './pages/Landing'
@@ -12,6 +12,9 @@ import NotFound from './pages/NotFound'
 import Play from './pages/Play'
 import Register from './pages/Register'
 import './App.css'
+
+// Loaded only when opened, so Uppy isn't downloaded on every other page.
+const CreateGame = lazy(() => import('./pages/CreateGame'))
 
 function App() {
   return (
@@ -28,7 +31,14 @@ function App() {
 
             <Route element={<RequireAuth />}>
               <Route path="dashboard" element={<MyGames />} />
-              <Route path="create" element={<CreateGame />} />
+              <Route
+                path="create"
+                element={
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <CreateGame />
+                  </Suspense>
+                }
+              />
               <Route path="games/:id/generating" element={<Generating />} />
               <Route path="games/:id" element={<GamePage />} />
             </Route>

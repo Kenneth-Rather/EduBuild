@@ -68,9 +68,44 @@
 .hint {
   margin-top: -8px;
 }
-.upload-slot {
-  padding: 24px;
+.upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.field-label {
+  font-weight: 600;
+}
+
+/* Uppy's Dashboard uses its own blue; swap in ours. */
+.lesson-upload {
+  --uppy-color-primary: var(--blue);
+  --uppy-color-primary-hover: var(--blue-dark);
+  --uppy-font-family: var(--sans);
+}
+.lesson-upload .uppy-Dashboard-inner {
   border: 2px dashed var(--border);
   border-radius: 8px;
-  text-align: center;
+  background: var(--blue-light);
+}
+.lesson-upload [data-uppy-drag-drop-supported='true'] .uppy-Dashboard-AddFiles {
+  border: none;
+}
+.lesson-upload .uppy-Dashboard-AddFiles-title {
+  color: var(--blue-dark);
+}
+.upload-note {
+  margin-top: 4px;
+  font-size: 15px;
+}
+.lesson-upload .uppy-Dashboard-browse,
+.lesson-upload .uppy-DashboardContent-back,
+.lesson-upload .uppy-DashboardContent-addMore,
+.lesson-upload .uppy-Dashboard-Item-reSelect {
+  color: var(--blue);
+  font-weight: 600;
+}
+.lesson-upload .uppy-Dashboard-browse:hover,
+.lesson-upload .uppy-Dashboard-browse:focus {
+  border-bottom-color: var(--blue);
 }

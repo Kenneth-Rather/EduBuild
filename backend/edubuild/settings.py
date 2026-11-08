@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'games',
+    'prototype_db',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +78,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'prototype': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'prototype_db.sqlite3',
+        'TEST': {
+            'NAME': BASE_DIR / 'test_prototype_db.sqlite3',
+            'DEPENDENCIES': [],
+        },
+    },
 }
+
+DATABASE_ROUTERS = ['prototype_db.db_router.PrototypeDatabaseRouter']
 
 
 # Password validation
@@ -115,6 +127,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Email

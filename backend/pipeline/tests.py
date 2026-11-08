@@ -17,6 +17,9 @@ from pipeline.stages import (
     can_move,
 )
 
+# Tests never call the real AI, so they are free and always give the same result.
+llm.USE_FAKE_AI = True
+
 LESSON = "When water gets very cold, it freezes into ice. When water gets very hot, it boils and turns into steam."
 
 

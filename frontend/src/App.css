@@ -1,0 +1,29 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  text-align: left;
+}
+.auth-form h1 {
+  text-align: center;
+}
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+}
+.auth-form p {
+  text-align: center;
+}
+.form-error {
+  color: #b42318;
+  background: #fef3f2;
+  border-radius: 6px;
+  padding: 8px 12px;
+}

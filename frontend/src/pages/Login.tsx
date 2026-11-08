@@ -1,26 +1,43 @@
 import { Link, useNavigate } from 'react-router'
+import { login } from '../api/auth'
 import { useAuth } from '../auth/useAuth'
-import Button from '../components/Button'
+import AuthForm from '../components/AuthForm'
 
 function Login() {
   const { logIn } = useAuth()
   const navigate = useNavigate()
 
+  async function handleSubmit(form: FormData) {
+    await login(String(form.get('email')), String(form.get('password')))
+    logIn()
+    navigate('/dashboard')
+  }
+
   return (
-    <>
-      <h1>Log in</h1>
-      <Button
-        onClick={() => {
-          logIn()
-          navigate('/dashboard')
-        }}
-      >
-        Log in
-      </Button>
-      <p>
-        No account? <Link to="/register">Register</Link>
-      </p>
-    </>
+    <AuthForm
+      title="Log in"
+      submitLabel="Log in"
+      onSubmit={handleSubmit}
+      footer={
+        <>
+          No account? <Link to="/register">Register</Link>
+        </>
+      }
+    >
+      <label>
+        Email
+        <input name="email" type="email" autoComplete="email" required />
+      </label>
+      <label>
+        Password
+        <input
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+        />
+      </label>
+    </AuthForm>
   )
 }
 

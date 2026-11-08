@@ -149,3 +149,20 @@ nav a:focus-visible,
 nav button:focus-visible {
   outline-color: var(--white);
 }
+
+input {
+  font: inherit;
+  color: var(--blue-dark);
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+input:focus-visible {
+  outline: none;
+  border-color: var(--blue);
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

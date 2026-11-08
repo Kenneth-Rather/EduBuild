@@ -1,67 +1,50 @@
-# EduBuild database
+# EduBuild prototype backend
 
-The backend is a Django project. The local development database is SQLite at
-`backend/db.sqlite3`; it is intentionally ignored by Git. Django migrations
-are the source of truth for creating the schema.
+This backend implements the prototype flow:
 
-## Start the backend
+```text
+React -> Django -> question generator -> Django -> React
+```
 
-From `backend` in PowerShell:
+It intentionally has no user accounts, lesson storage, or database models.
+The question generator is deterministic demo logic so the frontend flow can
+be demonstrated before the Claude integration is connected.
+
+## Run it
+
+From `backend`:
 
 ```powershell
-.\venv\Scripts\Activate.ps1
-python manage.py migrate
-python manage.py createsuperuser
+python -m pip install -r requirements.txt
 python manage.py runserver
 ```
 
-Open <http://127.0.0.1:8000/admin/> and sign in with the superuser. The
-`games` app is registered there so lessons, games, generation requests, game
-versions, questions, and share links can be inspected without a frontend.
+## Generate a game
 
-## Database workflow
-
-When a model changes:
+Send JSON:
 
 ```powershell
-python manage.py makemigrations
-python manage.py migrate
+Invoke-RestMethod -Method Post `
+  -Uri http://127.0.0.1:8000/api/generate-game/ `
+  -ContentType "application/json" `
+  -Body '{"text":"The water cycle includes evaporation."}'
 ```
 
-Run the database tests with:
+The endpoint also accepts a multipart `.txt` upload in a field such as
+`lesson`.
+
+## Test
 
 ```powershell
-python manage.py test games
+python manage.py test
 ```
 
-The schema deliberately does not store student accounts or answers. A
-`ShareLink` lets students open a published game without storing student
-personal data.
+## What each part does
 
-## Separate prototype database
-
-The requested minimal schema is in a separate SQLite file:
-`backend/prototype_db.sqlite3`.
-
-It contains:
-
-- `users`: `id`, `email`, `password`, `created_at`
-- `generation_requests`: `id`, `user_id`, `grade`, `subject`, `genre`,
-  `difficulty`, `uploaded_text`, `created_at`
-- `games`: `id`, `user_id`, `request_id`, `title`, `game_json`, `created_at`
-
-Create or update that database with:
-
-```powershell
-python manage.py migrate --database=prototype
-```
-
-Use the models through the `prototype` database alias:
-
-```python
-from prototype_db.models import Game
-
-games = Game.objects.using("prototype").all()
-```
-
-This database is independent from `backend/db.sqlite3`.
+- `manage.py` is the terminal entry point for Django commands.
+- `edubuild/settings.py` contains the project's configuration.
+- `edubuild/urls.py` connects `/api/` to the game app.
+- `games/urls.py` connects `/api/generate-game/` to the view.
+- `games/views.py` receives the request, checks it, and returns JSON.
+- `games/services.py` creates the two demo questions.
+- `games/tests.py` sends sample requests and checks the responses.

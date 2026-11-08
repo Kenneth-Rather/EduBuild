@@ -7,7 +7,8 @@ function Landing() {
 
   return (
     <>
-      <h1>Landing</h1>
+      <h1>EduBuild</h1>
+      <p>Your all-in-one student engagement tool</p>
       <Link to="/login">Get Started</Link>
     </>
   )

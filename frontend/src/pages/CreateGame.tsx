@@ -19,14 +19,15 @@ function CreateGame() {
   const [difficulty, setDifficulty] = useState<NewGame['difficulty']>(
     DIFFICULTIES[0],
   )
-  const [topic, setTopic] = useState('')
+  const [name, setName] = useState('')
   // One Uppy instance for the life of the page, so files survive re-renders.
   const [uppy] = useState(createLessonUppy)
   const uppyFiles = useUppyState(uppy, (state) => state.files)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  const hasContent = topic.trim() !== '' || Object.keys(uppyFiles).length > 0
+  // Games are generated from the uploaded lesson file only, for now.
+  const hasContent = Object.keys(uppyFiles).length > 0
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault()
@@ -43,7 +44,7 @@ function CreateGame() {
         genre,
         grade,
         difficulty,
-        topic: topic.trim(),
+        name: name.trim(),
         files,
       })
       navigate(`/games/${id}/generating`)
@@ -59,6 +60,14 @@ function CreateGame() {
 
       <fieldset>
         <legend>1. Game settings</legend>
+        <label>
+          Game name
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="e.g. The Water Cycle"
+          />
+        </label>
         <label>
           Genre
           <select
@@ -100,16 +109,7 @@ function CreateGame() {
 
       <fieldset>
         <legend>2. Lesson content</legend>
-        <p className="hint">Fill in either or both.</p>
-        <label>
-          Topic
-          <textarea
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            rows={3}
-            placeholder="e.g. The Solar System: the Sun, stars, planets, moons, and the rotation of the Earth"
-          />
-        </label>
+        <p className="hint">Upload the lesson to build the game from.</p>
         <div className="upload-field">
           <span className="field-label">Course material</span>
           <LessonUpload uppy={uppy} />

@@ -8,7 +8,7 @@ export type NewGame = {
   genre: (typeof GENRES)[number]
   grade: (typeof GRADES)[number]
   difficulty: (typeof DIFFICULTIES)[number]
-  topic: string
+  name: string // shown as the game's title; not used for generation
   files: File[]
 }
 

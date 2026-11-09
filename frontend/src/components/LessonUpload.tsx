@@ -17,8 +17,9 @@ function LessonUpload({ uppy }: { uppy: Uppy }) {
       />
       {/* Uppy hides its own note on short dashboards, so show it here. */}
       <p className="upload-note">
-        Text files (.txt) only · up to {MAX_FILES} files,{' '}
-        {MAX_FILE_SIZE_MB} MB each
+        Text files (.txt) only ·{' '}
+        {MAX_FILES === 1 ? 'one file' : `up to ${MAX_FILES} files`}, up to{' '}
+        {MAX_FILE_SIZE_MB} MB
       </p>
     </div>
   )

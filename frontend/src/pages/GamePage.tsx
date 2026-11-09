@@ -4,16 +4,18 @@ import Button from '../components/Button'
 import EditRequest from '../components/EditRequest'
 import GamePlayer from '../components/GamePlayer'
 import SharePopup from '../components/SharePopup'
+import { useCurrentGame } from '../game/useCurrentGame'
 
 function GamePage() {
   const { id = '' } = useParams()
   const navigate = useNavigate()
   const [tab, setTab] = useState<'play' | 'edit'>('play')
   const [sharing, setSharing] = useState(false)
+  const { game } = useCurrentGame()
 
   return (
     <>
-      <h1>Game {id}</h1>
+      <h1>{game?.request.name || 'Untitled game'}</h1>
 
       <div role="tablist">
         <Button onClick={() => setTab('play')} aria-selected={tab === 'play'}>

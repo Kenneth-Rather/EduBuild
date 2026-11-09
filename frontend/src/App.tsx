@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router'
 import { AuthProvider } from './auth/AuthProvider'
 import RequireAuth from './auth/RequireAuth'
 import Layout from './components/Layout'
+import { CurrentGameProvider } from './game/CurrentGameProvider'
 import GamePage from './pages/GamePage'
 import Generating from './pages/Generating'
 import Landing from './pages/Landing'
@@ -19,34 +20,36 @@ const CreateGame = lazy(() => import('./pages/CreateGame'))
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Student page sits outside Layout, so it has no navbar. */}
-          <Route path="play/:id" element={<Play />} />
+      <CurrentGameProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Student page sits outside Layout, so it has no navbar. */}
+            <Route path="play/:id" element={<Play />} />
 
-          <Route element={<Layout />}>
-            <Route index element={<Landing />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+            <Route element={<Layout />}>
+              <Route index element={<Landing />} />
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
 
-            <Route element={<RequireAuth />}>
-              <Route path="dashboard" element={<MyGames />} />
-              <Route
-                path="create"
-                element={
-                  <Suspense fallback={<p>Loading...</p>}>
-                    <CreateGame />
-                  </Suspense>
-                }
-              />
-              <Route path="games/:id/generating" element={<Generating />} />
-              <Route path="games/:id" element={<GamePage />} />
+              <Route element={<RequireAuth />}>
+                <Route path="dashboard" element={<MyGames />} />
+                <Route
+                  path="create"
+                  element={
+                    <Suspense fallback={<p>Loading...</p>}>
+                      <CreateGame />
+                    </Suspense>
+                  }
+                />
+                <Route path="games/:id/generating" element={<Generating />} />
+                <Route path="games/:id" element={<GamePage />} />
+              </Route>
+
+              <Route path="*" element={<NotFound />} />
             </Route>
-
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </CurrentGameProvider>
     </AuthProvider>
   )
 }

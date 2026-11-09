@@ -1,15 +1,24 @@
+import { useCurrentGame } from '../game/useCurrentGame'
 import TriviaGame from '../templates/trivia/TriviaGame'
-import {
-  SAMPLE_TRIVIA,
-  SAMPLE_TRIVIA_TITLE,
-} from '../templates/trivia/sampleData'
 
 // Shared by the Game page's Play tab and the student Play page.
-// Will load the game's data and pick the template for its genre.
-// Prototype: every game shows the sample trivia game.
+// Picks the template for the game's genre (only trivia so far).
+// Until the backend stores games, it shows the game generated in this tab,
+// whatever the ID in the URL.
 function GamePlayer({ gameId }: { gameId: string }) {
   void gameId
-  return <TriviaGame title={SAMPLE_TRIVIA_TITLE} data={SAMPLE_TRIVIA} />
+  const { game } = useCurrentGame()
+
+  if (game?.status !== 'done' || !game.data) {
+    return <p>Game not found.</p>
+  }
+
+  return (
+    <TriviaGame
+      title={game.request.name || 'Untitled game'}
+      data={game.data}
+    />
+  )
 }
 
 export default GamePlayer

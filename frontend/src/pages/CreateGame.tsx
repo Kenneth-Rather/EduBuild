@@ -2,18 +2,20 @@ import { useUppyState } from '@uppy/react'
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'
 import {
-  createGame,
   DIFFICULTIES,
   GENRES,
   GRADES,
+  PLACEHOLDER_GAME_ID,
   type NewGame,
 } from '../api/games'
 import Button from '../components/Button'
 import LessonUpload from '../components/LessonUpload'
 import { createLessonUppy } from '../components/lessonUppy'
+import { useCurrentGame } from '../game/useCurrentGame'
 
 function CreateGame() {
   const navigate = useNavigate()
+  const { startGeneration } = useCurrentGame()
   const [genre, setGenre] = useState<NewGame['genre']>(GENRES[0])
   const [grade, setGrade] = useState<NewGame['grade']>(GRADES[0])
   const [difficulty, setDifficulty] = useState<NewGame['difficulty']>(
@@ -23,35 +25,21 @@ function CreateGame() {
   // One Uppy instance for the life of the page, so files survive re-renders.
   const [uppy] = useState(createLessonUppy)
   const uppyFiles = useUppyState(uppy, (state) => state.files)
-  const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
 
   // Games are generated from the uploaded lesson file only, for now.
   const hasContent = Object.keys(uppyFiles).length > 0
 
-  async function handleSubmit(event: FormEvent) {
+  function handleSubmit(event: FormEvent) {
     event.preventDefault()
     if (!hasContent) return
-    setError('')
-    setSubmitting(true)
     // Uppy wraps each file; File objects are what gets sent to the backend.
     const files = uppy
       .getFiles()
       .map((file) => file.data)
       .filter((data): data is File => data instanceof File)
-    try {
-      const id = await createGame({
-        genre,
-        grade,
-        difficulty,
-        name: name.trim(),
-        files,
-      })
-      navigate(`/games/${id}/generating`)
-    } catch {
-      setError("Couldn't start generating your game. Please try again.")
-      setSubmitting(false)
-    }
+    // The request runs in the background; the Generating page shows progress.
+    startGeneration({ genre, grade, difficulty, name: name.trim(), files })
+    navigate(`/games/${PLACEHOLDER_GAME_ID}/generating`)
   }
 
   return (
@@ -116,13 +104,8 @@ function CreateGame() {
         </div>
       </fieldset>
 
-      {error && (
-        <p className="form-error" role="alert">
-          {error}
-        </p>
-      )}
-      <Button type="submit" disabled={!hasContent || submitting}>
-        {submitting ? 'Please wait...' : 'Generate Game'}
+      <Button type="submit" disabled={!hasContent}>
+        Generate Game
       </Button>
     </form>
   )

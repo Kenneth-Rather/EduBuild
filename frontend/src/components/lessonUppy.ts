@@ -9,7 +9,7 @@ export const ALLOWED_FILE_TYPES = [
   // '.pptx',
   '.txt',
 ]
-export const MAX_FILES = 5
+export const MAX_FILES = 1
 export const MAX_FILE_SIZE_MB = 20
 
 // Uppy only collects the files here; they're sent with the rest of the

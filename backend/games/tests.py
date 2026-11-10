@@ -8,6 +8,7 @@ from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from pipeline import llm
+from .models import GameRecord
 
 # Tests never call the real AI, so they are free and always give the same result.
 llm.USE_FAKE_AI = True
@@ -20,13 +21,19 @@ class GenerateGameTests(TestCase):
         """Check that JSON lesson text produces two successful questions."""
         response = self.client.post(
             "/api/generate-game/",
-            data=json.dumps({"text": "Cats are mammals."}),
-            content_type="application/json",
+            data={
+                "text": "Cats are mammals.",
+                "username": "Dylan",
+                "name": "Science Trivia",
+            },
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["status"], "success")
         self.assertEqual(len(response.json()["questions"]), 2)
+        record = GameRecord.objects.get()
+        self.assertEqual(record.username, "Dylan")
+        self.assertEqual(record.game_name, "Science Trivia")
 
     def test_generate_game_from_text_file(self):
         """Check that a UTF-8 .txt upload is accepted."""
@@ -37,12 +44,17 @@ class GenerateGameTests(TestCase):
                     "lesson.txt",
                     b"The water cycle.",
                     content_type="text/plain",
-                )
+                ),
+                "username": "Mia",
+                "name": "Water Cycle Quiz",
             },
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["status"], "success")
+        record = GameRecord.objects.get()
+        self.assertEqual(record.username, "Mia")
+        self.assertEqual(record.game_name, "Water Cycle Quiz")
 
     def test_empty_text_is_rejected(self):
         """Check that blank lesson text receives a useful client error."""

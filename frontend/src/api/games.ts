@@ -1,6 +1,7 @@
 // Calls to the backend's game endpoints.
 
 import type { TriviaGameData, TriviaQuestion } from '../types/trivia'
+import { getStoredUsername } from './auth'
 import { API_URL } from './client'
 
 export const GENRES = ['Trivia'] as const
@@ -11,7 +12,7 @@ export type NewGame = {
   genre: (typeof GENRES)[number]
   grade: (typeof GRADES)[number]
   difficulty: (typeof DIFFICULTIES)[number]
-  name: string // shown as the game's title; not sent to the backend
+  name: string // shown as the game's title
   files: File[]
 }
 
@@ -33,6 +34,8 @@ export async function generateQuestions(
   form.append('file', file)
   form.append('grade', game.grade)
   form.append('difficulty', game.difficulty)
+  form.append('name', game.name)
+  form.append('username', getStoredUsername())
 
   let response: Response
   try {

@@ -8,9 +8,27 @@ export class AuthError extends Error {}
 export const WRONG_PASSWORD = 'Wrong email or password.'
 export const EMAIL_TAKEN = 'An account with this email already exists.'
 
+const USERNAME_KEY = 'edubuild-database-username'
+
+function rememberUsername(username: string) {
+  try {
+    localStorage.setItem(USERNAME_KEY, username)
+  } catch {
+    // Saving a username is optional for the prototype.
+  }
+}
+
+export function getStoredUsername(): string {
+  try {
+    return localStorage.getItem(USERNAME_KEY) ?? 'demo_user'
+  } catch {
+    return 'demo_user'
+  }
+}
+
 export async function login(email: string, password: string): Promise<void> {
-  void email
   void password
+  rememberUsername(email.trim())
 }
 
 export async function register(
@@ -18,7 +36,7 @@ export async function register(
   email: string,
   password: string,
 ): Promise<void> {
-  void name
   void email
   void password
+  rememberUsername(name.trim() || email.trim())
 }

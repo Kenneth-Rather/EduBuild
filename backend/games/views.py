@@ -4,7 +4,7 @@ import json
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from .models import GameRecord
 from .services import generate_trivia_questions
 
 
@@ -76,4 +76,10 @@ def generate_game(request):
     if error:
         return JsonResponse({"status": "error", "message": error}, status=502)
 
+    GameRecord.objects.create(
+        username=request.POST.get("username", "demo_user").strip()[:150]
+        or "demo_user",
+        game_name=request.POST.get("name", "").strip()[:255]
+        or "Generated Trivia Game",
+    )
     return JsonResponse({"status": "success", "questions": questions})

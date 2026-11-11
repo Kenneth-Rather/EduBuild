@@ -5,6 +5,6 @@ from django.apps import AppConfig
 
 class GamesConfig(AppConfig):
     """Tell Django how to identify and load the game-generation app."""
-
+    """written by Dylan, with aid in Django App Config doc"""
     default_auto_field = "django.db.models.BigAutoField"
     name = "games"

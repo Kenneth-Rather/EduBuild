@@ -1,3 +1,5 @@
+// sample questions copied from the backend's fake AI answers (llm.py)
+
 import type { TriviaGameData } from '../../types/trivia'
 
 // Hardcoded sample for the prototype: the writer's fake output on the

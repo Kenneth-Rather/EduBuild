@@ -1,3 +1,5 @@
+// React context
+
 import { createContext } from 'react'
 import type { NewGame } from '../api/games'
 import type { TriviaGameData } from '../types/trivia'

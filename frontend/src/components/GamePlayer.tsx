@@ -1,3 +1,5 @@
+// From scratch
+
 import { useCurrentGame } from '../game/useCurrentGame'
 import TriviaGame from '../templates/trivia/TriviaGame'
 

@@ -1,5 +1,7 @@
+/* Started from the Vite React template's stylesheet; blue/white theme written from scratch. */
 /* Blue-and-white theme: blue text on white, flipped to white on blue for
    the navbar and buttons. */
+
 :root {
   --blue: #4682b4;
   --blue-dark: #2f5f8a; /* body text: #4682b4 is too light for small text */

@@ -1,3 +1,5 @@
+// From scratch: our trivia game template
+
 import { useState } from 'react'
 import type { TriviaGameData } from '../../types/trivia'
 import './TriviaGame.css'

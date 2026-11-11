@@ -1,3 +1,5 @@
+// From scratch
+
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { AuthError } from '../api/auth'
 import Button from './Button'

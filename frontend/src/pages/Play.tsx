@@ -1,3 +1,5 @@
+// uses react-router (open source)
+
 import { useParams } from 'react-router'
 import GamePlayer from '../components/GamePlayer'
 

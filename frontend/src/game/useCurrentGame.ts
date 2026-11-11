@@ -1,3 +1,5 @@
+// React hook
+
 import { useContext } from 'react'
 import { CurrentGameContext } from './currentGameContext'
 

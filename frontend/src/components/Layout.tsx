@@ -1,3 +1,5 @@
+// uses react-router (open source)
+
 import { Outlet } from 'react-router'
 import Navbar from './Navbar'
 

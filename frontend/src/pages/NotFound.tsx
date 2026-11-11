@@ -1,3 +1,5 @@
+// uses react-router (open source)
+
 import { Link } from 'react-router'
 
 function NotFound() {

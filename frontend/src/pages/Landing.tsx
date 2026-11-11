@@ -1,3 +1,5 @@
+// uses react-router (open source)
+
 import { Link, Navigate } from 'react-router'
 import { useAuth } from '../auth/useAuth'
 

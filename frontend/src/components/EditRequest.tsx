@@ -1,3 +1,5 @@
+// uses react-router (open source)
+
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'
 import { requestGameEdit } from '../api/games'

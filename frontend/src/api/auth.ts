@@ -1,3 +1,5 @@
+// Placeholder login with DB - Jacklyn and Dylan
+
 // Calls to the backend's auth endpoints.
 // TODO: the Django backend has no auth endpoints yet. Until it does, these
 // pretend to succeed. When they exist, send the request and throw an

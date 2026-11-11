@@ -1,3 +1,5 @@
+/* From scratch: page-level styles, incl. color overrides for Uppy's upload box. */
+
 .auth-form {
   display: flex;
   flex-direction: column;

@@ -1,3 +1,4 @@
+// Integrates Uppy (open source) Dashboard upload UI
 import type Uppy from '@uppy/core'
 import Dashboard from '@uppy/react/dashboard'
 import '@uppy/core/css/style.min.css'

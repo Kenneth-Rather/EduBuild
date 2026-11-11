@@ -1,3 +1,5 @@
+// React context
+
 import { useRef, useState, type ReactNode } from 'react'
 import { GameApiError, generateQuestions, type NewGame } from '../api/games'
 import { CurrentGameContext, type CurrentGame } from './currentGameContext'

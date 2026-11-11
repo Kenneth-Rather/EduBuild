@@ -1,3 +1,5 @@
+// integrates Uppy (open source) for upload, uses react-router (open source)
+
 import { useUppyState } from '@uppy/react'
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'

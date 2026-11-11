@@ -1,3 +1,5 @@
+// uses react-router (open source)
+
 import { Link, Navigate, useParams } from 'react-router'
 import Button from '../components/Button'
 import { useCurrentGame } from '../game/useCurrentGame'

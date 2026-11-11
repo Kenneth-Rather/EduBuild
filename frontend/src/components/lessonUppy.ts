@@ -1,3 +1,4 @@
+// Integrates Uppy (open source)
 import Uppy from '@uppy/core'
 
 // Lesson files teachers can upload, and how many / how big.

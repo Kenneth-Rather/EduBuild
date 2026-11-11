@@ -1,3 +1,5 @@
+// From scratch
+
 import Button from './Button'
 
 type SharePopupProps = {

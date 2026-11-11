@@ -1,3 +1,5 @@
+// uses react-router (open source) for page routing
+
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { AuthProvider } from './auth/AuthProvider'

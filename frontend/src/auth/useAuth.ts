@@ -1,3 +1,4 @@
+// React hook
 import { useContext } from 'react'
 import { AuthContext } from './authContext'
 

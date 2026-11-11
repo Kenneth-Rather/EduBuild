@@ -1,3 +1,5 @@
+// matches the backend writer's JSON output.
+
 // Shape of a trivia game, matching the backend writer's output.
 
 export interface TriviaQuestion {

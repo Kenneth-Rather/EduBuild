@@ -1,3 +1,5 @@
+// Implemented from scratch: calls our Django /api/generate-game/ endpoint.
+
 // Calls to the backend's game endpoints.
 
 import type { TriviaGameData, TriviaQuestion } from '../types/trivia'

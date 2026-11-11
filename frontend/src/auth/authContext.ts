@@ -1,3 +1,4 @@
+// React context
 import { createContext } from 'react'
 
 // Placeholder auth: a flag in localStorage until the backend has real login.

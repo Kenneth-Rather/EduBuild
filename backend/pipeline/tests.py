@@ -1,3 +1,5 @@
+"Developed by Kenneth Rather (EduBuild team) for CS 425 Project Part 4."
+
 import json
 from unittest.mock import patch
 

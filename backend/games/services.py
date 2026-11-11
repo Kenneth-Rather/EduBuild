@@ -15,3 +15,5 @@ def generate_trivia_questions(text, grade="3", difficulty="Easy"):
     """
     run = run_pipeline(text, grade=grade, difficulty=difficulty)
     return run["questions"], run["error"]
+
+"""Django Template for generating trivia questions."""

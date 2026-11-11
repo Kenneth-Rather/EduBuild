@@ -5,3 +5,5 @@ from django.urls import include, path
 urlpatterns = [
     path("api/", include("games.urls")),
 ]
+
+"""Django Template"""

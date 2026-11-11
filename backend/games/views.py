@@ -7,10 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import GameRecord
 from .services import generate_trivia_questions
 
-
+"""following code handles the HTTP request and responses for game generation"""
 def _read_text(request):
     """Find lesson text in the incoming HTTP request.
-
     React can send JSON, a multipart ``.txt`` upload, or a regular form field.
     This helper checks those formats and returns ``(text, error_message)``.
     """
@@ -83,3 +82,5 @@ def generate_game(request):
         or "Generated Trivia Game",
     )
     return JsonResponse({"status": "success", "questions": questions})
+
+"""Django Template for handling game generation requests."""

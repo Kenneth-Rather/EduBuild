@@ -9,10 +9,10 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 from pipeline import llm
 from .models import GameRecord
-
-# Tests never call the real AI, so they are free and always give the same result.
+"""Django Template for testing the game-generation endpoint."""
 llm.USE_FAKE_AI = True
 
+"""following code tests the game-generation endpoint, made usage of django test cases documentation and unitest discussed prior"""
 
 class GenerateGameTests(TestCase):
     """Verify the backend receives text and returns trivia JSON."""

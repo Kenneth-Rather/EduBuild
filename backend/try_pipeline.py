@@ -1,4 +1,6 @@
 """
+Developed by Kenneth Rather (EduBuild team) for CS 425 Project Part 4.
+
 Try the whole pipeline with the REAL AI on a lesson file.
 
 How to run (from the backend folder):

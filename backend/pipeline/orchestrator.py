@@ -1,4 +1,6 @@
 """
+Developed by Kenneth Rather (EduBuild team) for CS 425 Project Part 4.
+
 The orchestrator: runs every step of making a game, in order.
 
 Think of it as the head chef. It doesn't do the cooking itself. It hands each

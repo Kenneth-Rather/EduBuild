@@ -1,4 +1,6 @@
 """
+Developed by Kenneth Rather (EduBuild team) for CS 425 Project Part 4.
+
 The steps a game generation goes through, and which step can come next.
 Matches the game generation state diagram in our P3 design (Fig 5.2).
 """

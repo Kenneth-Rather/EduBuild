@@ -1,4 +1,6 @@
 """
+Developed by Kenneth Rather (EduBuild team) for CS 425 Project Part 4.
+
 The one place where the pipeline talks to AI models.
 
 Every step calls ask(role, prompt). "role" is the job: "writer" writes the

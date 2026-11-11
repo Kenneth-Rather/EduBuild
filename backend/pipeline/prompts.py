@@ -1,4 +1,6 @@
 """
+Developed by Kenneth Rather (EduBuild team) for CS 425 Project Part 4.
+
 The instructions ("roles") we give each AI model.
 
 Each prompt is plain English with blanks in {curly braces}. The orchestrator
